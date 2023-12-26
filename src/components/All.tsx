@@ -1,8 +1,9 @@
+import { IReport } from "../types";
 import ReportContentList from "./ReportContentList";
 
 interface Props {
-  reportList: [];
-  onDelete: () => void;
+  reportList: IReport[];
+  onDelete: (id: number) => void;
 }
 
 const All = (props: Props) => {
