@@ -12,6 +12,8 @@ import ReactStars from "react-stars";
 
 import { getAuth } from "firebase/auth";
 
+import { IBook } from "../types";
+
 const New = ({ onCreate, reportList, reportCount, userInfo, IsLogin }) => {
   // 로그인 접근
 
@@ -20,7 +22,6 @@ const New = ({ onCreate, reportList, reportCount, userInfo, IsLogin }) => {
       navigate("/login");
       alert("로그인 해주세요!");
     }
-    console.log(userInfo);
   }, []);
 
   const [modal, setModal] = useState(false);

@@ -17,7 +17,7 @@ const ReportContentList = (props: Props) => {
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
-  const handlePageChage = (page: number) => {
+  const handlePageChange = (page: number) => {
     setPage(page);
   };
 
@@ -83,7 +83,7 @@ const ReportContentList = (props: Props) => {
           </ReportContent>
         ))}
         {currentPageData.length !== 0 && (
-          <Pagination activePage={page} itemsCountPerPage={5} totalItemsCount={props.reportList.length} pageRangeDisplayed={5} prevPageText={"<"} nextPageText={">"} onChange={handlePageChage} />
+          <Pagination activePage={page} itemsCountPerPage={5} totalItemsCount={props.reportList.length} pageRangeDisplayed={5} prevPageText={"<"} nextPageText={">"} onChange={handlePageChange} />
         )}
       </div>
     </div>
