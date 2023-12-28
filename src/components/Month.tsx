@@ -4,19 +4,31 @@ import styled from "styled-components";
 
 import Mybutton from "./MyButton";
 import ReportContentList from "./ReportContentList";
+import { IReport } from "../types";
 
-const MyHeader = ({ headText, leftChild, rightChild }) => {
+interface Props {
+  reportList: IReport[];
+  onDelete: (id: number) => void;
+}
+
+interface HProps {
+  headText: string;
+  leftChild: JSX.Element;
+  rightChild: JSX.Element;
+}
+
+const MyHeader = (props: HProps) => {
   return (
     <MonthHeader>
-      <LeftButton>{leftChild}</LeftButton>
-      <HeadText>{headText}</HeadText>
-      <RightButton>{rightChild}</RightButton>
+      <LeftButton>{props.leftChild}</LeftButton>
+      <HeadText>{props.headText}</HeadText>
+      <RightButton>{props.rightChild}</RightButton>
     </MonthHeader>
   );
 };
 
-const Month = ({ reportList, onDelete }) => {
-  const [data, setData] = useState([]);
+const Month = (props: Props) => {
+  const [data, setData] = useState<IReport[]>([]);
   const [curDate, setCurDate] = useState(new Date());
 
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
@@ -34,13 +46,13 @@ const Month = ({ reportList, onDelete }) => {
 
     const lastDay = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0, 23, 59, 59).getTime();
 
-    setData(reportList.filter((it) => firstDay <= it.date && it.date <= lastDay));
-  }, [reportList, curDate]);
+    setData(props.reportList.filter((it) => firstDay <= it.date && it.date <= lastDay));
+  }, [props.reportList, curDate]);
 
   return (
     <div>
       <MyHeader headText={headText} leftChild={<Mybutton text={"<"} onClick={decreaseMonth} />} rightChild={<Mybutton text={">"} onClick={increaseMonth} />} />
-      <ReportContentList reportList={data} onDelete={onDelete} />
+      <ReportContentList reportList={data} onDelete={props.onDelete} />
     </div>
   );
 };
