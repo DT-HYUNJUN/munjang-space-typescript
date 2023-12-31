@@ -24,7 +24,7 @@ import getDefaultProfileImage from "./utils/getDefaultProfileImage";
 import ThisBookReport from "./pages/ThisBookReport";
 
 function App() {
-  const [IsLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
+  const [IsLogin, setIsLogin] = useState(localStorage.getItem("isLogin") === true);
   const [userInfo, setUserInfo] = useState({});
   const [reportList, setReportList] = useState([]);
   const [reportCount, setReportCount] = useState(0);

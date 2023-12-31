@@ -6,18 +6,24 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 import styled from "styled-components";
 
-const MyHeader = ({ IsLogin }) => {
+interface Props {
+  IsLogin: boolean;
+}
+
+const MyHeader = (props: Props) => {
   // 로그인 할때 유저네임 firebase에서 가져오기
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState("");
   const auth = getAuth();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const username = user.displayName;
-        setUsername(username);
+        if (username) {
+          setUsername(username);
+        }
       } else {
-        setUsername(null);
+        setUsername("");
       }
     });
   }, [auth]);
@@ -46,11 +52,11 @@ const MyHeader = ({ IsLogin }) => {
           <NavLink to="/list">나의 서재</NavLink>
           <NavLink to="/statistics">나의 통계</NavLink>
 
-          <NavLink to={IsLogin ? "/profile" : "/login"}>{IsLogin ? "나의 정보" : "로그인"}</NavLink>
+          <NavLink to={props.IsLogin ? "/profile" : "/login"}>{props.IsLogin ? "나의 정보" : "로그인"}</NavLink>
 
-          <NavLink to="/signup">{IsLogin ? " " : "회원가입"}</NavLink>
+          <NavLink to="/signup">{props.IsLogin ? " " : "회원가입"}</NavLink>
 
-          {IsLogin ? <Logout onClick={onLogOutClick}>로그아웃</Logout> : " "}
+          {props.IsLogin ? <Logout onClick={onLogOutClick}>로그아웃</Logout> : " "}
         </div>
         <LoginInformation>{username && `${username} 님 독후감을 작성해보세요 😀`}</LoginInformation>
       </div>
